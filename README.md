@@ -134,12 +134,3 @@ Maintenance
 This repository is maintained by [BC Ministry of Transportation](http://www.th.gov.bc.ca/).
 Click [here](https://github.com/orgs/bcgov/teams/tran/repositories) for a complete list of our repositories on GitHub.
 
-oc new-project tran-schoolbus-dev
-oc new-project tran-schoolbus-tools
-
-git clone https://github.com/venerari/schoolbus.git
-cd schoolbus
-
-oc process -f openshift/templates/schoolbus-build-template.json > schoolbus-build.json
-oc create -f schoolbus-build.json
-
