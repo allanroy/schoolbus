@@ -1,0 +1,804 @@
+{
+    "kind": "List",
+    "apiVersion": "v1",
+    "metadata": {},
+    "items": [
+        {
+            "apiVersion": "v1",
+            "kind": "ImageStream",
+            "metadata": {
+                "annotations": {
+                    "openshift.io/image.dockerRepositoryCheck": "2016-12-13T21:35:23Z"
+                },
+                "creationTimestamp": null,
+                "generation": 2,
+                "labels": {
+                    "template": "schoolbus-builds"
+                },
+                "name": "base-centos7"
+            },
+            "spec": {
+                "dockerImageRepository": "openshift/base-centos7",
+                "tags": [
+                    {
+                        "annotations": null,
+                        "from": {
+                            "kind": "DockerImage",
+                            "name": "openshift/base-centos7:latest"
+                        },
+                        "generation": 2,
+                        "importPolicy": {},
+                        "name": "latest"
+                    }
+                ]
+            },
+            "status": {
+                "dockerImageRepository": ""
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "ImageStream",
+            "metadata": {
+                "annotations": {
+                    "openshift.io/image.dockerRepositoryCheck": "2016-12-13T21:35:23Z"
+                },
+                "creationTimestamp": null,
+                "generation": 2,
+                "labels": {
+                    "template": "schoolbus-builds"
+                },
+                "name": "dotnet"
+            },
+            "spec": {
+                "dockerImageRepository": "microsoft/dotnet",
+                "tags": [
+                    {
+                        "annotations": null,
+                        "from": {
+                            "kind": "DockerImage",
+                            "name": "microsoft/dotnet:1.1.0-sdk-projectjson"
+                        },
+                        "generation": 2,
+                        "importPolicy": {},
+                        "name": "latest"
+                    }
+                ]
+            },
+            "status": {
+                "dockerImageRepository": ""
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "ImageStream",
+            "metadata": {
+                "creationTimestamp": null,
+                "generation": 1,
+                "labels": {
+                    "template": "schoolbus-builds"
+                },
+                "name": "s2i-nginx"
+            },
+            "spec": {
+                "tags": [
+                    {
+                        "annotations": null,
+                        "generation": null,
+                        "importPolicy": {},
+                        "name": "latest"
+                    }
+                ]
+            },
+            "status": {}
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "ImageStream",
+            "metadata": {
+                "creationTimestamp": null,
+                "generation": 1,
+                "labels": {
+                    "template": "schoolbus-builds"
+                },
+                "name": "client"
+            },
+            "spec": {
+                "tags": [
+                    {
+                        "annotations": null,
+                        "generation": null,
+                        "importPolicy": {},
+                        "name": "latest"
+                    }
+                ]
+            },
+            "status": {}
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "ImageStream",
+            "metadata": {
+                "creationTimestamp": null,
+                "generation": 1,
+                "labels": {
+                    "template": "schoolbus-builds"
+                },
+                "name": "backup"
+            },
+            "spec": {
+                "tags": [
+                    {
+                        "annotations": null,
+                        "generation": null,
+                        "importPolicy": {},
+                        "name": "latest"
+                    }
+                ]
+            },
+            "status": {}
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "ImageStream",
+            "metadata": {
+                "creationTimestamp": null,
+                "generation": 1,
+                "labels": {
+                    "template": "schoolbus-builds"
+                },
+                "name": "frontend"
+            },
+            "spec": {
+                "tags": [
+                    {
+                        "annotations": null,
+                        "generation": null,
+                        "importPolicy": {},
+                        "name": "latest"
+                    }
+                ]
+            },
+            "status": {}
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "ImageStream",
+            "metadata": {
+                "creationTimestamp": null,
+                "generation": 1,
+                "labels": {
+                    "template": "schoolbus-builds"
+                },
+                "name": "server"
+            },
+            "spec": {
+                "tags": [
+                    {
+                        "annotations": null,
+                        "generation": null,
+                        "importPolicy": {},
+                        "name": "latest"
+                    }
+                ]
+            },
+            "status": {}
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "ImageStream",
+            "metadata": {
+                "creationTimestamp": null,
+                "generation": 1,
+                "labels": {
+                    "template": "schoolbus-builds"
+                },
+                "name": "pdf"
+            },
+            "spec": {
+                "tags": [
+                    {
+                        "annotations": null,
+                        "generation": null,
+                        "importPolicy": {},
+                        "name": "latest"
+                    }
+                ]
+            },
+            "status": {}
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "BuildConfig",
+            "metadata": {
+                "annotations": {
+                    "openshift.io/generated-by": "OpenShiftNewApp"
+                },
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "s2i-nginx",
+                    "template": "schoolbus-builds"
+                },
+                "name": "s2i-nginx"
+            },
+            "spec": {
+                "nodeSelector": null,
+                "output": {
+                    "to": {
+                        "kind": "ImageStreamTag",
+                        "name": "s2i-nginx:latest"
+                    }
+                },
+                "postCommit": {},
+                "resources": {},
+                "runPolicy": "Serial",
+                "source": {
+                    "git": {
+                        "uri": "https://github.com/BCDevOps/s2i-nginx.git"
+                    },
+                    "type": "Git"
+                },
+                "strategy": {
+                    "dockerStrategy": {
+                        "from": {
+                            "kind": "ImageStreamTag",
+                            "name": "base-centos7:latest"
+                        }
+                    },
+                    "type": "Docker"
+                },
+                "triggers": [
+                    {
+                        "type": "ConfigChange"
+                    },
+                    {
+                        "imageChange": {},
+                        "type": "ImageChange"
+                    }
+                ]
+            },
+            "status": {
+                "lastVersion": 0
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "BuildConfig",
+            "metadata": {
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "cerberus",
+                    "template": "schoolbus-builds"
+                },
+                "name": "cerberus"
+            },
+            "spec": {
+                "nodeSelector": null,
+                "output": {
+                    "to": {
+                        "kind": "ImageStreamTag",
+                        "name": "cerberus:latest",
+                        "namespace": "tran-schoolbus-tools"
+                    }
+                },
+                "postCommit": {},
+                "resources": {},
+                "runPolicy": "Serial",
+                "source": {
+                    "contextDir": "/SiteMinder-Proxy",
+                    "git": {
+                        "ref": "master",
+                        "uri": "https://github.com/RUSSBTEST/schoolbus.git"
+                    },
+                    "type": "Git"
+                },
+                "strategy": {
+                    "sourceStrategy": {
+                        "from": {
+                            "kind": "ImageStreamTag",
+                            "name": "s2i-nginx:latest"
+                        }
+                    },
+                    "type": "Source"
+                },
+                "triggers": [
+                    {
+                        "imageChange": {},
+                        "type": "ImageChange"
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ]
+            },
+            "status": {
+                "lastVersion": 0
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "BuildConfig",
+            "metadata": {
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "server",
+                    "template": "schoolbus-builds"
+                },
+                "name": "server"
+            },
+            "spec": {
+                "nodeSelector": null,
+                "output": {
+                    "to": {
+                        "kind": "ImageStreamTag",
+                        "name": "server:latest",
+                        "namespace": "tran-schoolbus-tools"
+                    }
+                },
+                "postCommit": {},
+                "resources": {},
+                "runPolicy": "Serial",
+                "source": {
+                    "contextDir": "",
+                    "git": {
+                        "ref": "master",
+                        "uri": "https://github.com/RUSSBTEST/schoolbus.git"
+                    },
+                    "type": "Git"
+                },
+                "strategy": {
+                    "dockerStrategy": {
+                        "dockerfilePath": "server.Dockerfile",
+                        "from": {
+                            "kind": "ImageStreamTag",
+                            "name": "dotnet:latest"
+                        }
+                    },
+                    "type": "Docker"
+                },
+                "triggers": [
+                    {
+                        "imageChange": {},
+                        "type": "ImageChange"
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ]
+            },
+            "status": {
+                "lastVersion": 0
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "BuildConfig",
+            "metadata": {
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "client",
+                    "template": "schoolbus-builds"
+                },
+                "name": "client"
+            },
+            "spec": {
+                "nodeSelector": null,
+                "output": {
+                    "to": {
+                        "kind": "ImageStreamTag",
+                        "name": "client:latest",
+                        "namespace": "tran-schoolbus-tools"
+                    }
+                },
+                "postCommit": {},
+                "resources": {},
+                "runPolicy": "Serial",
+                "source": {
+                    "contextDir": "/Client",
+                    "git": {
+                        "ref": "master",
+                        "uri": "https://github.com/RUSSBTEST/schoolbus.git"
+                    },
+                    "type": "Git"
+                },
+                "strategy": {
+                    "dockerStrategy": {
+                        "from": {
+                            "kind": "ImageStreamTag",
+                            "name": "dotnet:latest"
+                        }
+                    },
+                    "type": "Docker"
+                },
+                "triggers": [
+                    {
+                        "imageChange": {},
+                        "type": "ImageChange"
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ]
+            },
+            "status": {
+                "lastVersion": 0
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "BuildConfig",
+            "metadata": {
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "backup",
+                    "template": "schoolbus-builds"
+                },
+                "name": "backup"
+            },
+            "spec": {
+                "nodeSelector": null,
+                "output": {
+                    "to": {
+                        "kind": "ImageStreamTag",
+                        "name": "backup:latest",
+                        "namespace": "tran-schoolbus-tools"
+                    }
+                },
+                "postCommit": {},
+                "resources": {},
+                "runPolicy": "Serial",
+                "source": {
+                    "contextDir": "/Backup",
+                    "git": {
+                        "ref": "master",
+                        "uri": "https://github.com/RUSSBTEST/schoolbus.git"
+                    },
+                    "type": "Git"
+                },
+                "strategy": {
+                    "type": "Docker"
+                },
+                "triggers": [
+                    {
+                        "imageChange": {},
+                        "type": "ImageChange"
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ]
+            },
+            "status": {
+                "lastVersion": 0
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "BuildConfig",
+            "metadata": {
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "pdf",
+                    "template": "schoolbus-builds"
+                },
+                "name": "pdf"
+            },
+            "spec": {
+                "nodeSelector": null,
+                "output": {
+                    "to": {
+                        "kind": "ImageStreamTag",
+                        "name": "pdf:latest",
+                        "namespace": "tran-schoolbus-tools"
+                    }
+                },
+                "postCommit": {},
+                "resources": {},
+                "runPolicy": "Serial",
+                "source": {
+                    "contextDir": "/",
+                    "git": {
+                        "ref": "master",
+                        "uri": "https://github.com/RUSSBTEST/schoolbus.git"
+                    },
+                    "type": "Git"
+                },
+                "strategy": {
+                    "dockerStrategy": {
+                        "dockerfilePath": "PDF.Dockerfile"
+                    },
+                    "type": "Docker"
+                },
+                "triggers": [
+                    {
+                        "imageChange": {},
+                        "type": "ImageChange"
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ]
+            },
+            "status": {
+                "lastVersion": 0
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "ImageStream",
+            "metadata": {
+                "creationTimestamp": null,
+                "generation": 1,
+                "labels": {
+                    "template": "schoolbus-builds"
+                },
+                "name": "cerberus"
+            },
+            "spec": {
+                "tags": [
+                    {
+                        "annotations": null,
+                        "generation": null,
+                        "importPolicy": {},
+                        "name": "latest"
+                    }
+                ]
+            },
+            "status": {}
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "BuildConfig",
+            "metadata": {
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "frontend",
+                    "template": "schoolbus-builds"
+                },
+                "name": "frontend"
+            },
+            "spec": {
+                "nodeSelector": null,
+                "output": {
+                    "to": {
+                        "kind": "ImageStreamTag",
+                        "name": "frontend:latest",
+                        "namespace": "tran-schoolbus-tools"
+                    }
+                },
+                "postCommit": {},
+                "resources": {},
+                "runPolicy": "Serial",
+                "source": {
+                    "contextDir": "",
+                    "git": {
+                        "ref": "master",
+                        "uri": "https://github.com/RUSSBTEST/schoolbus.git"
+                    },
+                    "type": "Git"
+                },
+                "strategy": {
+                    "dockerStrategy": {
+                        "dockerfilePath": "frontend.Dockerfile",
+                        "from": {
+                            "kind": "ImageStreamTag",
+                            "name": "client:latest"
+                        },
+                        "noCache": true
+                    },
+                    "type": "Docker"
+                },
+                "triggers": [
+                    {
+                        "imageChange": {},
+                        "type": "ImageChange"
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ]
+            },
+            "status": {
+                "lastVersion": 0
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "ImageStream",
+            "metadata": {
+                "creationTimestamp": null,
+                "generation": 1,
+                "labels": {
+                    "template": "schoolbus-builds"
+                },
+                "name": "editor"
+            },
+            "spec": {
+                "tags": [
+                    {
+                        "annotations": null,
+                        "generation": null,
+                        "importPolicy": {},
+                        "name": "editor"
+                    }
+                ]
+            },
+            "status": {}
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "ImageStream",
+            "metadata": {
+                "creationTimestamp": null,
+                "generation": 1,
+                "labels": {
+                    "template": "schoolbus-builds"
+                },
+                "name": "mock"
+            },
+            "spec": {
+                "tags": [
+                    {
+                        "annotations": null,
+                        "generation": null,
+                        "importPolicy": {},
+                        "name": "mock"
+                    }
+                ]
+            },
+            "status": {}
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "ImageStream",
+            "metadata": {
+                "creationTimestamp": null,
+                "generation": 1,
+                "labels": {
+                    "template": "schoolbus-builds"
+                },
+                "name": "schema-spy"
+            },
+            "spec": {
+                "tags": [
+                    {
+                        "annotations": null,
+                        "generation": null,
+                        "importPolicy": {},
+                        "name": "schema-spy"
+                    }
+                ]
+            },
+            "status": {}
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "BuildConfig",
+            "metadata": {
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "editor",
+                    "buildconfig": "editor",
+                    "template": "schoolbus-builds"
+                },
+                "name": "editor"
+            },
+            "spec": {
+                "nodeSelector": null,
+                "output": {
+                    "to": {
+                        "kind": "ImageStreamTag",
+                        "name": "editor:latest"
+                    }
+                },
+                "postCommit": {},
+                "resources": {},
+                "source": {
+                    "git": {
+                        "uri": "https://github.com/bcgov/Swagger-Editor.git"
+                    },
+                    "type": "Git"
+                },
+                "strategy": {
+                    "type": "Docker"
+                },
+                "triggers": [
+                    {
+                        "type": "ConfigChange"
+                    },
+                    {
+                        "imageChange": {},
+                        "type": "ImageChange"
+                    }
+                ]
+            },
+            "status": {}
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "BuildConfig",
+            "metadata": {
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "mock",
+                    "buildconfig": "mock",
+                    "template": "schoolbus-builds"
+                },
+                "name": "mock"
+            },
+            "spec": {
+                "nodeSelector": null,
+                "output": {
+                    "to": {
+                        "kind": "ImageStreamTag",
+                        "name": "mock:latest"
+                    }
+                },
+                "postCommit": {},
+                "resources": {},
+                "source": {
+                    "git": {
+                        "uri": "https://github.com/bcgov/Mock-Server.git"
+                    },
+                    "type": "Git"
+                },
+                "strategy": {
+                    "type": "Docker"
+                },
+                "triggers": [
+                    {
+                        "type": "ConfigChange"
+                    },
+                    {
+                        "imageChange": {},
+                        "type": "ImageChange"
+                    }
+                ]
+            },
+            "status": {}
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "BuildConfig",
+            "metadata": {
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "schema-spy",
+                    "buildconfig": "schema-spy",
+                    "template": "schoolbus-builds"
+                },
+                "name": "schema-spy"
+            },
+            "spec": {
+                "nodeSelector": null,
+                "output": {
+                    "to": {
+                        "kind": "ImageStreamTag",
+                        "name": "schema-spy:latest"
+                    }
+                },
+                "postCommit": {},
+                "resources": {},
+                "source": {
+                    "git": {
+                        "uri": "https://github.com/bcgov/SchemaSpy.git"
+                    },
+                    "type": "Git"
+                },
+                "strategy": {
+                    "type": "Docker"
+                },
+                "triggers": [
+                    {
+                        "type": "ConfigChange"
+                    },
+                    {
+                        "imageChange": {},
+                        "type": "ImageChange"
+                    }
+                ]
+            },
+            "status": {}
+        }
+    ]
+}
